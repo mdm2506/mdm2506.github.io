@@ -1,0 +1,172 @@
+<body>
+    <div id="adhdQuestions">
+        <h2>ADHD Questionnaire</h2>
+        <form id="adhdForm">
+            <ol>
+                <li>
+                    <label>
+                         Do you have difficulty paying attention to details or make careless mistakes in your tasks?
+                        <input type="checkbox" name="question1" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                         Do you often have trouble maintaining attention in tasks or activities, such as long conversations or readings?
+                        <input type="checkbox" name="question2" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                         Do you find it hard to follow instructions or complete school, work, or household tasks?
+                        <input type="checkbox" name="question3" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                         Do you often avoid or show aversion to tasks that require sustained mental effort, like studying or administrative work?
+                        <input type="checkbox" name="question4" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                         Do you frequently get easily distracted by external stimuli or irrelevant thoughts when performing a task?
+                        <input type="checkbox" name="question5" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                         Do you often forget daily tasks or things necessary for activities, like school supplies or keys?
+                        <input type="checkbox" name="question6" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                         Do you feel restless or impatient in situations where you are expected to remain still, such as classes or meetings?
+                        <input type="checkbox" name="question7" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                         Do you often talk excessively or act as if you are 'motorized'?
+                        <input type="checkbox" name="question8" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                         Do you find it hard to wait your turn in situations where it's necessary, like in lines or games?
+                        <input type="checkbox" name="question9" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                         Do you often interrupt others or respond before questions are completed?
+                        <input type="checkbox" name="question10" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                         Do you often have difficulties playing or engaging in leisure activities quietly?
+                        <input type="checkbox" name="question11" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                         Do you find it hard to maintain order in your activities or follow detailed instructions?
+                        <input type="checkbox" name="question12" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                         Do you often forget your commitments or appointments?
+                        <input type="checkbox" name="question13" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                         Do you have problems organizing your daily life, like managing your time or responsibilities?
+                        <input type="checkbox" name="question14" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                         Do you often seem careless in your daily activities, like making mistakes at work or in household chores?
+                        <input type="checkbox" name="question15" value="true">
+                    </label>
+                </li>
+            </ol>
+            <button type="button" onclick="calculateADHDResult()">Calculate ADHD Result</button>
+        </form>
+    </div>
+<hr>
+    <div id="result" style="display: none;">
+        <!-- Result will be displayed here -->
+    </div>
+
+    <script>
+        function calculateADHDResult() {
+            var form = document.getElementById('adhdForm');
+            var formData = new FormData(form);
+            var trueCounter = 0;
+
+            for (var pair of formData.entries()) {
+                if (pair[1] === 'true') {
+                    trueCounter++;
+                }
+            }
+
+            // Call adhdResult() function passing the trueCounter value
+            adhdResult(trueCounter);
+        }
+
+        // Define adhdResult function to handle the result
+        function adhdResult(trueCounter) {
+            var resultDiv = document.getElementById('result');
+            var resultText = '';
+
+            if (trueCounter === 15) {
+                resultText = 'You may suffer from ADHD.';
+            } else if (trueCounter >= 8) {
+                resultText = 'You may suffer from ADHD.';
+            } else if (trueCounter > 0) {
+                resultText = 'It cannot be determined with certainty whether you have ADHD, but if you\'re unsure, it\'s best to consult an expert such as a psychiatrist.';
+            } else {
+                resultText = 'You may not suffer from ADHD, but if you\'re unsure, it\'s best to consult an expert such as a psychiatrist.';
+            }
+
+            // Add recommendations based on the result
+            if (trueCounter === 15 || trueCounter >= 8) {
+                resultText += '<br><br>';
+                resultText += 'If you\'d like, we can provide you with some recommendations (yes/no): <input type="text" id="recommendationInput">';
+                resultText += '<button onclick="showADHDRecommendations()">Submit</button>';
+            }
+
+            resultDiv.innerHTML = '<h2>Questionnaire Result</h2><p>' + resultText + '</p>';
+            resultDiv.style.display = 'block';
+        }
+
+        function showADHDRecommendations() {
+            var recomend = document.getElementById('recommendationInput').value;
+            var resultDiv = document.getElementById('result');
+            var recommendationsText = '';
+
+            if (recomend.toLowerCase() === 'yes') {
+                recommendationsText += '<br><br>';
+                recommendationsText += '<b>Recommendations:</b><br>';
+                recommendationsText += '1. Seek professional support: Consult a healthcare professional specializing in ADHD diagnosis and treatment.<br>';
+                recommendationsText += '2. Learn organizational skills: Use tools like planners, calendars, and reminders to help you stay organized and manage your time effectively.<br>';
+                recommendationsText += '3. Break tasks into smaller steps: Divide larger tasks into smaller, more manageable steps to make them less overwhelming.<br>';
+                recommendationsText += '4. Create a structured routine: Establishing a consistent daily routine can help improve focus and reduce impulsivity.<br>';
+                recommendationsText += '5. Use visual aids: Visual cues and reminders can be helpful in remembering tasks and staying on track.<br>';
+                recommendationsText += '6. Practice mindfulness and relaxation techniques: Techniques like deep breathing and meditation can help reduce stress and improve attention.<br>';
+                recommendationsText += '7. Get regular exercise: Physical activity can help alleviate ADHD symptoms by increasing dopamine and norepinephrine levels in the brain.<br>';
+                recommendationsText += '8. Consider medication: In some cases, medication may be prescribed to help manage ADHD symptoms. Consult a healthcare professional for guidance.<br>';
+                recommendationsText += 'Remember, ADHD management strategies may vary for each individual. It\'s essential to find what works best for you and seek professional support if needed.';
+            } else {
+                recommendationsText = 'Well, see you soon.';
+            }
+
+            resultDiv.innerHTML += '<p>' + recommendationsText + '</p>';
+        }
+    </script>
+</body>
+</html>

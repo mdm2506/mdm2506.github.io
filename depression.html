@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Depression Questionnaire</title>
+</head>
+<body>
+    <div id="depressionQuestions">
+        <h2>Depression Questionnaire</h2>
+        <form id="depressionForm">
+            <ol>
+                <li>
+                    <label>
+                        Do you feel sad or depressed most of the time?
+                        <input type="checkbox" name="question1" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Have you lost interest in activities you used to enjoy?
+                        <input type="checkbox" name="question2" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Do you experience significant changes in your appetite or weight?
+                        <input type="checkbox" name="question3" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Do you feel fatigue or lack of energy frequently?
+                        <input type="checkbox" name="question4" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Do you have difficulty falling asleep or wake up early and can't get back to sleep?
+                        <input type="checkbox" name="question5" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Have you noticed a decrease in your ability to concentrate or make decisions?
+                        <input type="checkbox" name="question6" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Do you feel restless or agitated, or conversely, slower than usual?
+                        <input type="checkbox" name="question7" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Do you have recurring thoughts about death or suicide?
+                        <input type="checkbox" name="question8" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Do you feel worthless or hopeless about the future?
+                        <input type="checkbox" name="question9" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Do you experience excessive feelings of guilt or self-blame?
+                        <input type="checkbox" name="question10" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Have you noticed changes in your level of activity, such as becoming more withdrawn or less active?
+                        <input type="checkbox" name="question11" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Do you feel you've lost the sense of your life or that you lack purpose?
+                        <input type="checkbox" name="question12" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Have you noticed changes in your ability to experience pleasure or joy?
+                        <input type="checkbox" name="question13" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Do you have difficulties relating to others or maintaining close relationships?
+                        <input type="checkbox" name="question14" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Have you noticed changes in your personal hygiene habits or self-care?
+                        <input type="checkbox" name="question15" value="true">
+                    </label>
+                </li>
+            </ol>
+            <button type="button" onclick="calculateDepressionResult()">Calculate Depression Result</button>
+        </form>
+    </div>
+
+    <div id="result" style="display: none;">
+        <!-- Result will be displayed here -->
+    </div>
+
+    <script>
+        function calculateDepressionResult() {
+            var form = document.getElementById('depressionForm');
+            var formData = new FormData(form);
+            var trueCounter = 0;
+
+            for (var pair of formData.entries()) {
+                if (pair[1] === 'true') {
+                    trueCounter++;
+                }
+            }
+
+            // Call resultDepression() function passing the trueCounter value
+            resultDepression(trueCounter);
+        }
+
+        // Define resultDepression function to handle the result
+        function resultDepression(trueCounter) {
+            var resultDiv = document.getElementById('result');
+            var resultText = '';
+
+            if (trueCounter === 15) {
+                resultText = 'You probably suffer from depression.';
+            } else if (trueCounter >= 8) {
+                resultText = 'You may suffer from depression.';
+            } else if (trueCounter > 0) {
+                resultText = 'It cannot be determined with certainty whether you have depression, but if you\'re unsure, it\'s best to consult a professional like a psychologist.';
+            } else {
+                resultText = 'You may not suffer from depression, but if you\'re unsure, it\'s best to consult a professional like a psychologist.';
+            }
+
+            // Add recommendations based on the result
+            if (trueCounter === 15 || trueCounter >= 8) {
+                resultText += '<br><br>';
+                resultText += 'If you\'d like, we can provide you with some recommendations (yes/no): <input type="text" id="recommendationInput">';
+                resultText += '<button onclick="showDepressionRecommendations()">Submit</button>';
+            }
+
+            resultDiv.innerHTML = '<h2>Questionnaire Result</h2><p>' + resultText + '</p>';
+            resultDiv.style.display = 'block';
+        }
+
+        function showDepressionRecommendations() {
+            var recomend = document.getElementById('recommendationInput').value;
+            var resultDiv = document.getElementById('result');
+            var recommendationsText = '';
+
+            if (recomend.toLowerCase() === 'yes') {
+                recommendationsText += '<br><br>';
+                recommendationsText += '<b>Recommendations:</b><br>';
+                recommendationsText += '1. Seek professional support: Consider talking to a therapist or counselor specializing in mental health. They can help you understand and manage your depression symptoms effectively.<br>';
+                recommendationsText += '2. Practice relaxation techniques: Meditation, yoga, and deep breathing can be helpful in reducing stress and anxiety associated with depression. Dedicate a few minutes each day to these practices.<br>';
+                recommendationsText += '3. Maintain a healthy lifestyle: Ensure you get enough sleep, follow a balanced diet, and engage in regular exercise. These habits can help improve your mood and overall well-being.<br>';
+                recommendationsText += '4. Set achievable goals: Set realistic goals for yourself and work towards them gradually. This can help you regain a sense of achievement and control in your life.<br>';
+                recommendationsText += '5. Avoid social isolation: While it may be difficult, try to stay connected with friends and family. The company of loved ones can provide important emotional support during difficult times.<br>';
+                recommendationsText += '6. Engage in enjoyable activities: Dedicate time to activities that bring you pleasure and satisfaction, whether it\'s reading, painting, listening to music, or anything else you enjoy. Engaging in pleasurable activities can help improve your mood.<br>';
+                recommendationsText += '7. Be kind to yourself: Don\'t punish yourself for feeling depressed. Be compassionate towards yourself and try to adopt a gentle and understanding attitude towards yourself during this difficult period.<br>';
+            } else {
+                recommendationsText = 'Well, see you soon.';
+            }
+
+            resultDiv.innerHTML += '<p>' + recommendationsText + '</p>';
+        }
+    </script>
+</body>
+</html>

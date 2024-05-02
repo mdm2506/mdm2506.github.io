@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anxiety Questionnaire</title>
+    <style>
+        /* CSS styles here */
+    </style>
+</head>
+<body>
+    <div id="questions">
+        <h2>Anxiety questions</h2>
+        <form id="anxietyForm">
+            <ol>
+                <li>
+                    <label>
+                        <span>Do you constantly feel worried or nervous for no apparent reason?</span>
+                        <input type="checkbox" name="question1" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <span>Do you have difficulty controlling your worries?</span>
+                        <input type="checkbox" name="question2" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <span>Do you feel restless or tense most of the time?</span>
+                        <input type="checkbox" name="question3" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <span> Do you have trouble falling asleep due to anxious thoughts?</span>
+                        <input type="checkbox" name="question4" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <span> Do you experience palpitations, sweating, or tremors when you are anxious?</span>
+                        <input type="checkbox" name="question5" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <span> Do you avoid situations that cause you anxiety?</span>
+                        <input type="checkbox" name="question6" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <span> Do you experience feelings of suffocation or difficulty breathing during moments of anxiety?</span>
+                        <input type="checkbox" name="question7" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <span> Do you feel irritable or agitated frequently?</span>
+                        <input type="checkbox" name="question8" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <span>Do you have difficulty concentrating due to anxiety?</span>
+                        <input type="checkbox" name="question9" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <span> Do you experience physical symptoms such as headaches, stomach discomfort, or muscle tension due to anxiety?</span>
+                        <input type="checkbox" name="question10" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <span> Do you constantly worry about future situations?</span>
+                        <input type="checkbox" name="question11" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <span> Are you afraid of losing control or going crazy when you are anxious?</span>
+                        <input type="checkbox" name="question12" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <span> Do you experience episodes of intense anxiety or panic attacks?</span>
+                        <input type="checkbox" name="question13" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <span> Do you avoid social activities or new situations due to anxiety?</span>
+                        <input type="checkbox" name="question14" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <span> Do you find it difficult to relax or rest due to persistent anxious thoughts?</span>
+                        <input type="checkbox" name="question15" value="true">
+                    </label>
+                </li>
+            </ol>
+            <button type="button" onclick="calculateResult()">Calculate Result</button>
+        </form>
+    </div>
+
+    <div id="result" style="display: none;">
+        <!-- Result will be displayed here -->
+    </div>
+
+    <script>
+        function calculateResult() {
+            var form = document.getElementById('anxietyForm');
+            var formData = new FormData(form);
+            var contadorTrue = 0;
+
+            for (var pair of formData.entries()) {
+                if (pair[1] === 'true') {
+                    contadorTrue++;
+                }
+            }
+
+            var resultDiv = document.getElementById('result');
+            var resultText = '';
+
+            if (contadorTrue === 15) {
+                resultText = 'Probablemente Suffers from anxiety.';
+            } else if (contadorTrue >= 8) {
+                resultText = 'May suffer from anxiety.';
+            } else if (contadorTrue > 0) {
+                resultText = 'Cannot be determined with certainty, but that doesn\'t mean you really don\'t have it. If you\'re unsure, it\'s best to go to an expert like a psychologist.';
+            } else {
+                resultText = 'You may not suffer from anxiety, but that doesn\'t mean you really don\'t have it. If you\'re unsure, it\'s best to go to an expert like a psychologist.';
+            }
+
+            // Add recommendations based on the result
+            if (contadorTrue === 15 || contadorTrue >= 8) {
+                resultText += '<br><br>';
+                resultText += 'If you like, we can give you some recommendations (yes/no): <input type="text" id="recommendationInput">';
+                resultText += '<button onclick="showRecommendations()">Submit</button>';
+            }
+
+            resultDiv.innerHTML = '<h2>Questionnaire Result</h2><p>' + resultText + '</p>';
+            resultDiv.style.display = 'block';
+        }
+
+        function showRecommendations() {
+            var recomend = document.getElementById('recommendationInput').value;
+            var resultDiv = document.getElementById('result');
+            var recommendationsText = '';
+
+            if (recomend.toLowerCase() === 'yes') {
+                recommendationsText += '<br><br>';
+                recommendationsText += '<b>Recommendations:</b><br>';
+                recommendationsText += '1. Seek professional support: Consider talking to a therapist or counselor specializing in mental health. They can help you understand and manage your anxiety symptoms effectively.<br>';
+                recommendationsText += '2. Practice relaxation techniques: Yoga, meditation, and deep breathing can be helpful in reducing stress and anxiety. Dedicate a few minutes each day to practice these techniques.<br>';
+                recommendationsText += '3. Exercise regularly: Physical exercise can be an excellent way to reduce anxiety symptoms. Try to incorporate physical activities you enjoy into your daily routine.<br>';
+                recommendationsText += '4. Set boundaries and priorities: Learn to say no when necessary and establish healthy boundaries in your relationships and responsibilities. Prioritize your needs and well-being.<br>';
+                recommendationsText += '5. Maintain a healthy lifestyle: Ensure you get enough sleep, follow a balanced diet, and avoid excessive consumption of alcohol and caffeine, as they can worsen anxiety symptoms.<br>';
+                recommendationsText += '6. Practice self-care: Dedicate time to activities you enjoy and find relaxing, such as reading a book, taking a nature walk, or enjoying a relaxing bath.<br>';
+                recommendationsText += '7. Limit exposure to stressful situations: Identify situations that trigger your anxiety and try to limit your exposure to them as much as possible. If necessary, seek ways to gradually and controlledly confront these situations.<br>';
+                recommendationsText += '8. Consider cognitive-behavioral therapy (CBT): CBT is a form of therapy that has been shown to be effective in treating anxiety. It can help you identify and change thought and behavior patterns that contribute to your anxiety.<br>';
+                recommendationsText += 'Remember that everyone is different, so it\'s important to find strategies that work best for you. Don\'t hesitate to seek professional help if you feel that anxiety is significantly affecting your daily life.';
+            } else {
+                recommendationsText = 'Well, see you soon.';
+            }
+
+            resultDiv.innerHTML += '<p>' + recommendationsText + '</p>';
+        }
+    </script>
+</body>
+</html>

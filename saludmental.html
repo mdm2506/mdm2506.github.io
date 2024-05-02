@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Menu</title>
+<h1>English project</h1>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .menu {
+            width: 300px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .menu-item {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<hr>
+<body>
+    <div class="menu">
+        <h2>MENU:</h2>
+        <div class="menu-item">
+            <button onclick="showContent('ansiedad')">Anxiety</button>
+        </div>
+        <div class="menu-item">
+            <button onclick="showContent('depression')">Depression</button>
+        </div>
+        <div class="menu-item">
+            <button onclick="showContent('adhd')">Attention deficit hyperactivity disorder (ADHD)</button>
+        </div>
+        <div class="menu-item">
+            <button onclick="showContent('autism')">Autism spectrum disorders (ASD)</button>
+        </div>
+        <div class="menu-item">
+            <button onclick="showContent('alimentacion')">Eating disorders</button>
+        </div>
+        <div class="menu-item">
+            <button onclick="showContent('salida')">Salir</button>
+        </div>
+    </div>
+
+    <div id="content" style="display: none;">
+        <!-- Aquí se mostrará el contenido de cada opción del menú -->
+    </div>
+
+    <script>
+        function showContent(option) {
+            var contentDiv = document.getElementById('content');
+            var content = '';
+
+            switch (option) {
+                case 'ansiedad':
+                    content = '<h3>Anxiety questions</h3><a href="anxiety.html">anxiety</a>';
+                    break;
+                case 'depression':
+                    content = '<h3>Depression questions</h3><a href="depression.html">depression</a>';
+                    break;
+                case 'adhd':
+                    content = '<h3>ADHD questions</h3><a href="adhd.html">adhd</a>';
+                    break;
+                case 'autism':
+                    content = '<h3>Autism questions</h3><a href="autism.html">autism</a>';
+                    break;
+                case 'alimentacion':
+                    content = '<h3>Eating disorders questions</h3><a href="eatingdisorders.html">eatingdisorders</a>';
+                    break;
+                case 'salida':
+                    content = '<h3>Bye bye...</h3>';
+                    break;
+            }
+
+            contentDiv.innerHTML = content;
+            contentDiv.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autism Spectrum Disorder Questionnaire</title>
+</head>
+<body>
+    <div id="autismQuestions">
+        <h2>Autism Spectrum Disorder Questionnaire</h2>
+        <form id="autismForm">
+            <ol>
+                <li>
+                    <label>
+                        Do you have difficulty understanding social cues or non-verbal communication, such as facial expressions or gestures?
+                    </label>
+                    <input type="checkbox" name="question1" value="true">
+                </li>
+                <li>
+                    <label>
+                        Do you struggle to initiate or maintain conversations, particularly in social settings?
+                    </label>
+                    <input type="checkbox" name="question2" value="true">
+                </li>
+                <li>
+                    <label>
+                        Do you engage in repetitive behaviors, such as hand-flapping, rocking, or repeating phrases?
+                    </label>
+                    <input type="checkbox" name="question3" value="true">
+                </li>
+                <li>
+                    <label>
+                        Do you have intense interests in specific topics, often to the exclusion of others?
+                    </label>
+                    <input type="checkbox" name="question4" value="true">
+                </li>
+                <li>
+                    <label>
+                        Do you adhere strongly to routines and become upset by changes in your environment or schedule?
+                    </label>
+                    <input type="checkbox" name="question5" value="true">
+                </li>
+                <li>
+                    <label>
+                        Do you experience sensory sensitivities, such as being sensitive to lights, sounds, textures, or smells?
+                    </label>
+                    <input type="checkbox" name="question6" value="true">
+                </li>
+                <li>
+                    <label>
+                        Do you struggle with understanding sarcasm, irony, or figures of speech?
+                    </label>
+                    <input type="checkbox" name="question7" value="true">
+                </li>
+                <li>
+                    <label>
+                        Do you prefer solitary activities over social interactions?
+                    </label>
+                    <input type="checkbox" name="question8" value="true">
+                </li>
+                <li>
+                    <label>
+                        Do you have difficulty understanding the perspective of others or empathy?
+                    </label>
+                    <input type="checkbox" name="question9" value="true">
+                </li>
+                <li>
+                    <label>
+                        Do you have difficulty coping with changes in routine or unexpected events?
+                    </label>
+                    <input type="checkbox" name="question10" value="true">
+                </li>
+                <li>
+                    <label>
+                        Do you tend to focus intensely on specific details rather than the overall picture?
+                    </label>
+                    <input type="checkbox" name="question11" value="true">
+                </li>
+                <li>
+                    <label>
+                        Do you have difficulty understanding social rules or norms, leading to social awkwardness?
+                    </label>
+                    <input type="checkbox" name="question12" value="true">
+                </li>
+                <li>
+                    <label>
+                        Do you struggle with initiating or maintaining eye contact during conversations?
+                    </label>
+                    <input type="checkbox" name="question13" value="true">
+                </li>
+                <li>
+                    <label>
+                        Do you have difficulty recognizing or understanding others' emotions?
+                    </label>
+                    <input type="checkbox" name="question14" value="true">
+                </li>
+                <li>
+                    <label>
+                        Do you engage in repetitive movements or behaviors, such as hand-flapping, spinning, or pacing?
+                    </label>
+                    <input type="checkbox" name="question15" value="true">
+                </li>
+            </ol>
+            <button type="button" onclick="calculateAutismResult()">Calculate Autism Result</button>
+        </form>
+    </div>
+
+    <div id="result" style="display: none;">
+        <!-- Result will be displayed here -->
+    </div>
+
+    <script>
+        function calculateAutismResult() {
+            var form = document.getElementById('autismForm');
+            var formData = new FormData(form);
+            var trueCounter = 0;
+
+            for (var pair of formData.entries()) {
+                if (pair[1] === 'true') {
+                    trueCounter++;
+                }
+            }
+
+            // Call autismResult() function passing the trueCounter value
+            autismResult(trueCounter);
+        }
+
+        function autismResult(trueCounter) {
+            var resultDiv = document.getElementById('result');
+            var resultText = '';
+
+            if (trueCounter === 15) {
+                resultText = 'You may be exhibiting symptoms of autism spectrum disorder (ASD).';
+            } else if (trueCounter >= 8) {
+                resultText = 'You might have some symptoms of autism spectrum disorder (ASD).';
+            } else if (trueCounter > 0) {
+                resultText = 'It\'s less likely that you have autism spectrum disorder (ASD), but if you\'re uncertain, it\'s best to consult an expert.';
+            } else {
+                resultText = 'Cannot be determined with certainty, but that doesn\'t mean you really don\'t have it. If you\'re unsure, it\'s best to go to an expert like a psychologist.';
+            }
+
+            if (trueCounter === 15 || trueCounter >= 8) {
+                resultText += '<br><br>';
+                resultText += 'Would you like to receive some recommendations? (yes/no): <input type="text" id="recommendationInput">';
+                resultText += '<button onclick="showAutismRecommendations()">Submit</button>';
+            } else {
+                resultText += '<br><br>';
+                resultText += 'Well, see you soon.';
+            }
+
+            resultDiv.innerHTML = '<h2>Questionnaire Result</h2><p>' + resultText + '</p>';
+            resultDiv.style.display = 'block';
+        }
+
+        function showAutismRecommendations() {
+            var recomend = document.getElementById('recommendationInput').value;
+            var resultDiv = document.getElementById('result');
+            var recommendationsText = '';
+
+            if (recomend.toLowerCase() === 'yes') {
+                recommendationsText += '<br><br>';
+                recommendationsText += '<b>Recommendations:</b><br>';
+                recommendationsText += '1. Seek professional evaluation: Consider consulting with a specialist or psychologist experienced in diagnosing and treating ASD. They can provide a comprehensive assessment and develop a tailored intervention plan.<br>';
+                recommendationsText += '2. Explore therapy options: Behavioral therapy, speech therapy, and occupational therapy can help address specific challenges associated with ASD, such as social skills deficits, communication difficulties, and sensory sensitivities.<br>';
+                recommendationsText += '3. Develop coping strategies: Work with a therapist to develop coping strategies and techniques to manage stress, regulate emotions, and navigate social situations more effectively.<br>';
+                recommendationsText += '4. Create a supportive environment: Create a supportive and structured environment at home and in other settings to accommodate individual needs and preferences. This may include establishing routines, providing sensory-friendly spaces, and fostering understanding and acceptance among family members, peers, and colleagues.<br>';
+                recommendationsText += '5. Educate yourself and others: Learn more about ASD to better understand its impact and how to support individuals with ASD. Educate family members, teachers, and others in the community about ASD to promote awareness, acceptance, and inclusion.<br>';
+                recommendationsText += 'Remember that each individual with ASD is unique, and intervention strategies should be tailored to their specific strengths, challenges, and preferences. Don\'t hesitate to seek professional guidance and support along the way.<br>';
+            } else {
+                recommendationsText = 'Well, see you soon.';
+            }
+
+            resultDiv.innerHTML += '<p>' + recommendationsText + '</p>';
+        }
+    </script>
+</body>
+</html>

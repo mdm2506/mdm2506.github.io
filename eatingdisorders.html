@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eating Disorders Questionnaire</title>
+</head>
+<body>
+    <div id="eatingDisorderQuestions">
+        <h2>Eating Disorders Questionnaire</h2>
+        <form id="eatingDisorderForm">
+            <ol>
+                <li>
+                    <label>
+                        Do you have an intense fear of gaining weight or becoming fat, even if you are underweight?
+                        <input type="checkbox" name="question1" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Do you engage in behaviors to prevent weight gain, such as strict dieting, fasting, or excessive exercise?
+                        <input type="checkbox" name="question2" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Do you have a distorted perception of your body weight or shape, often seeing yourself as overweight even if you are underweight?
+                        <input type="checkbox" name="question3" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Do you experience episodes of binge eating, where you consume large amounts of food in a short period and feel a loss of control overeating?
+                        <input type="checkbox" name="question4" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Do you engage in purging behaviors, such as self-induced vomiting, misuse of laxatives, diuretics, or enemas, to compensate for binge eating or prevent weight gain?
+                        <input type="checkbox" name="question5" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Have you noticed a significant decline in your physical health, such as feeling weak, tired, or having frequent stomach issues, as a result of your eating behaviors?
+                        <input type="checkbox" name="question6" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Do you experience feelings of guilt, shame, or distress about your eating behaviors?
+                        <input type="checkbox" name="question7" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Have you noticed social withdrawal or avoidance of social activities because of concerns about your body weight or shape?
+                        <input type="checkbox" name="question8" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Do you have difficulties concentrating or focusing on tasks unrelated to food, weight, or body image?
+                        <input type="checkbox" name="question9" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Do you avoid eating in public or around others due to fear of judgment or discomfort?
+                        <input type="checkbox" name="question10" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Have you noticed changes in your mood, such as irritability, anxiety, or depression, related to your eating behaviors?
+                        <input type="checkbox" name="question11" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Do you feel a sense of satisfaction or control when you engage in restrictive eating or purging behaviors?
+                        <input type="checkbox" name="question12" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Have you noticed a decline in your performance at work, school, or other areas of life due to your eating behaviors?
+                        <input type="checkbox" name="question13" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Do you experience withdrawal symptoms, such as irritability or anxiety, when you try to stop or reduce your eating disorder behaviors?
+                        <input type="checkbox" name="question14" value="true">
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Have you noticed changes in your relationships with family, friends, or significant others because of your eating behaviors?
+                        <input type="checkbox" name="question15" value="true">
+                    </label>
+                </li>
+            </ol>
+            <button type="button" onclick="calculateEatingDisorderResult()">Calculate Eating Disorder Result</button>
+        </form>
+    </div>
+
+    <div id="result" style="display: none;">
+        <!-- Result will be displayed here -->
+    </div>
+
+    <script>
+        function calculateEatingDisorderResult() {
+            var form = document.getElementById('eatingDisorderForm');
+            var formData = new FormData(form);
+            var trueCounter = 0;
+
+            for (var pair of formData.entries()) {
+                if (pair[1] === 'true') {
+                    trueCounter++;
+                }
+            }
+
+            // Call resultAlimentacion() function passing the trueCounter value
+            resultAlimentacion(trueCounter);
+        }
+
+        function resultAlimentacion(trueCounter) {
+            var resultDiv = document.getElementById('result');
+            var resultText = '';
+
+            if (trueCounter === 15) {
+                resultText = 'You may be struggling with an eating disorder.';
+            } else if (trueCounter >= 8) {
+                resultText = 'You might be struggling with an eating disorder.';
+            } else if (trueCounter > 0) {
+                resultText = 'It\'s uncertain whether you\'re struggling with an eating disorder, but if you\'re unsure, it\'s best to consult a healthcare professional.';
+            } else {
+                resultText = 'You may not be experiencing an eating disorder, but if you\'re unsure, it\'s best to consult a healthcare professional.';
+            }
+
+            if (trueCounter === 15 || trueCounter >= 8) {
+                resultText += '<br><br>';
+                resultText += 'Would you like to receive some recommendations? (yes/no): <input type="text" id="recommendationInput">';
+                resultText += '<button onclick="showAlimentacionRecommendations()">Submit</button>';
+            } else {
+                resultText += '<br><br>';
+                resultText += 'Well, see you soon.';
+            }
+
+            resultDiv.innerHTML = '<h2>Questionnaire Result</h2><p>' + resultText + '</p>';
+            resultDiv.style.display = 'block';
+        }
+
+        function showAlimentacionRecommendations() {
+    var recomend = document.getElementById('recommendationInput').value;
+    var resultDiv = document.getElementById('result');
+    var recommendationsText = '';
+    if (recomend.toLowerCase() === 'yes') {
+        resultDiv.innerHTML = '<h2>Recommendations</h2>' +
+            '<p>1. Seek professional help: Consult with a healthcare provider or therapist specializing in eating disorders for proper diagnosis and treatment.</p>' +
+            '<p>2. Establish a support system: Surround yourself with understanding and supportive friends, family members, or support groups who can offer encouragement and empathy throughout your recovery journey.</p>' +
+            '<p>3. Practice self-compassion: Be kind to yourself and recognize that recovery from an eating disorder is a challenging process. Treat yourself with compassion and understanding.</p>' +
+            '<p>4. Challenge negative thoughts: Work on challenging and reframing negative thoughts and beliefs about food, weight, and body image through techniques like cognitive-behavioral therapy (CBT).</p>' +
+            '<p>5. Focus on balanced nutrition: Aim for a balanced and nourishing diet that includes a variety of foods from all food groups. Avoid restrictive eating patterns.</p>' +
+            '<p>6. Engage in enjoyable activities: Explore hobbies, interests, and activities that bring you joy and fulfillment beyond thoughts of food or body image.</p>' +
+            '<p>7. Practice mindfulness and stress management: Incorporate mindfulness techniques, such as deep breathing exercises or meditation, to help manage stress and promote a healthy relationship with food and your body.</p>';
+    } else {
+        resultDiv.innerText = "Well, see you soon.";
+    }
+    
+    resultDiv.style.display = 'block'; // Close the statement here
+}
+
+    </script>
+</body>
+</html>
